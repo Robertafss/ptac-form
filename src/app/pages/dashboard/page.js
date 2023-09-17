@@ -1,16 +1,18 @@
 import { getUsers } from "@/app/functions/handlerAcessAPI";
-import '../../css/estilo.css';
-
-
+import { Suspense } from "react";
+import ListUsers from "@/app/componentes/Listadeusuario";
 
 export default async function Dashboard() {
-   const listadenomes = getUsers() 
-    return (
-        <div>
-            <h1>Dashboardddd</h1>
-            {listadenomes.map((u)=>
-             <p>{u.name}</p>
-            )}
-        </div>
-    );
+
+ const users = getUsers()
+  return (
+<div> 
+    <Suspense fallback={<p>Carregando página...</p>}>
+    <ListUsers users={users}/>
+    <button><a href="/pages/alterarusuario">Alterar</a></button>
+    <button><a href="/pages/registrarform">Registrar</a></button>
+</Suspense>
+            
+</div>
+    );
 };
